@@ -1,7 +1,11 @@
 import SwiftUI
 
-struct PokemonList: View {
-    @State var viewModel = PokemonListViewModel()
+struct PokemonList<ViewModel: PokemonListViewModelProtocol>: View {
+    @State var viewModel: ViewModel
+
+    init(viewModel: ViewModel) {
+        _viewModel = State(wrappedValue: viewModel)
+    }
 
     var body: some View {
         NavigationStack {
@@ -41,12 +45,25 @@ struct PokemonList: View {
     }
 }
 
+protocol PokemonListViewModelProtocol: Observable {
+    var pokemonList: [Pokemon] { get }
+    func fetchPokemon() async
+}
+
+extension PokemonListViewModel: PokemonListViewModelProtocol {}
+
 extension PokemonType {
     var color: Color {
         Color(red: rgb.red, green: rgb.green, blue: rgb.blue, opacity: rgb.opacity)
     }
 }
 
+@Observable
+final class StubPokemonListViewModel: PokemonListViewModelProtocol {
+    let pokemonList: [Pokemon] = Pokemon.list
+    func fetchPokemon() async { /* no op */ }
+}
+
 #Preview {
-    PokemonList()
+    PokemonList(viewModel: StubPokemonListViewModel())
 }
