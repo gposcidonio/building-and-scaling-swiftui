@@ -1,6 +1,5 @@
 //
 //  PokemonListApp.swift
-//  PokemonList
 //
 //  Created by jolteon on 7/11/23.
 //
@@ -11,7 +10,7 @@ import SwiftUI
 struct PokemonListApp: App {
     var body: some Scene {
         WindowGroup {
-            PokemonList(viewModel: PokemonListViewModel())
+            PokemonListView(viewModel: PokemonListViewModel())
         }
     }
 }

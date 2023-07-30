@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PokemonList<ViewModel: PokemonListViewModelProtocol>: View {
+struct PokemonListView<ViewModel: PokemonListViewModelProtocol>: View {
     @State var viewModel: ViewModel
 
     init(viewModel: ViewModel) {
@@ -65,5 +65,5 @@ final class StubPokemonListViewModel: PokemonListViewModelProtocol {
 }
 
 #Preview {
-    PokemonList(viewModel: StubPokemonListViewModel())
+    PokemonListView(viewModel: StubPokemonListViewModel())
 }
