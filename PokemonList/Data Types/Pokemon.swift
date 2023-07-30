@@ -4,6 +4,8 @@ struct Pokemon: Identifiable, Codable {
     let id: UInt
     let name: String
     let types: [PokemonType]
+    let sprites: PokemonSprites
+    let stats: [PokemonStat]
 }
 
 struct PokemonType: Identifiable, Codable {
@@ -61,4 +63,28 @@ struct PokemonType: Identifiable, Codable {
                 (red: 0, green: 0, blue: 0, opacity: 1)
         }
     }
+}
+
+struct PokemonSprites: Codable {
+    let normal: URL?
+    let shiny: URL?
+
+    enum CodingKeys: String, CodingKey {
+        case normal = "front_default"
+        case shiny = "front_shiny"
+    }
+}
+
+struct PokemonStat: Codable {
+    let baseStat: Int
+    let statDescription: PokemonStatDescription
+
+    enum CodingKeys: String, CodingKey {
+        case baseStat = "base_stat"
+        case statDescription = "stat"
+    }
+}
+
+struct PokemonStatDescription: Codable {
+    let name: String
 }

@@ -30,6 +30,10 @@ final class PokemonListViewModel {
             pokemonList = []
         }
     }
+
+    func detailViewModel(for pokemon: Pokemon) -> some PokemonDetailViewModelProtocol {
+        PokemonDetailViewModel(pokemon: pokemon)
+    }
 }
 
 struct PokeListResponse: Codable {

@@ -11,7 +11,11 @@ struct PokemonListView<ViewModel: PokemonListViewModelProtocol>: View {
         NavigationStack {
             List {
                 ForEach(viewModel.pokemonList) { pokemon in
-                    Row(pokemon: pokemon)
+                    NavigationLink {
+                        PokemonDetailView(viewModel: viewModel.detailViewModel(for: pokemon))
+                    } label: {
+                        Row(pokemon: pokemon)
+                    }
                 }
             }
             .task {
@@ -46,8 +50,11 @@ struct PokemonListView<ViewModel: PokemonListViewModelProtocol>: View {
 }
 
 protocol PokemonListViewModelProtocol: Observable {
+    associatedtype DetailVM: PokemonDetailViewModelProtocol
+
     var pokemonList: [Pokemon] { get }
     func fetchPokemon() async
+    func detailViewModel(for pokemon: Pokemon) -> DetailVM
 }
 
 extension PokemonListViewModel: PokemonListViewModelProtocol {}
@@ -62,6 +69,9 @@ extension PokemonType {
 final class StubPokemonListViewModel: PokemonListViewModelProtocol {
     let pokemonList: [Pokemon] = Pokemon.list
     func fetchPokemon() async { /* no op */ }
+    func detailViewModel(for pokemon: Pokemon) -> some PokemonDetailViewModelProtocol {
+        StubPokemonDetailViewModel()
+    }
 }
 
 #Preview {
