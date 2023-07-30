@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PokemonList: View {
+struct PokemonListView: View {
     @State var viewModel = PokemonListViewModel()
 
     var body: some View {
@@ -48,5 +48,5 @@ extension PokemonType {
 }
 
 #Preview {
-    PokemonList()
+    PokemonListView()
 }
